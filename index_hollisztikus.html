@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hollisztika – Főoldal</title>
+  <meta name="description" content="Hollisztika szolgáltatások és belső egyensúly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+      :root, [data-theme="light"] {
+        --bg: #ECE7DC;
+        --surface: #fffaf5;
+        --surface-2: #ebe4da;
+        --text: #261d17;
+        --muted: #6b6057;
+        --faint: #918277;
+        --line: #d6c9bc;
+        --primary: #6955a3;
+        --accent: #d6a439;
+        --inverse: #fffaf5;
+        --overlay: rgba(22, 18, 16, .52);
+        --hero-text: #fffaf4;
+        --hero-muted: rgba(255, 250, 244, .82);
+        --display: 'Google Sans Flex', system-ui, sans-serif;
+        --body: 'Manrope', system-ui, sans-serif;
+        --shadow: 0 22px 60px rgba(37, 28, 22, .11);
+      }
+      
+      [data-theme="dark"] {
+        --bg: #1B1610;
+        --surface: #211d1a;
+        --surface-2: #2b2521;
+        --text: #ECE7DC;
+        --muted: #c1b4a8;
+        --faint: #95877c;
+        --line: #2e2920;
+        --primary: #b9a5ed;
+        --accent: #e1bd85;
+        --inverse: #171310;
+        --overlay: rgba(8, 7, 7, .66);
+        --hero-text: #fffaf4;
+        --hero-muted: rgba(255, 250, 244, .78);
+        --shadow: 0 22px 60px rgba(0, 0, 0, .35);
+      }
+      
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+      
+      body {
+        min-height: 100vh;
+        font-family: var(--body);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        transition: background .25s ease, color .25s ease;
+      }
+      
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      
+      button {
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: 0;
+        cursor: pointer;
+      }
+      
+      img, svg, video {
+        display: block;
+        max-width: 100%;
+      }
+      
+    h1, h2, h3 {
+        font-family: var(--display);
+        line-height: .98;
+        letter-spacing: -.0em;
+        font-weight: 200; /* Ide írd a betűvastagság számát */
+      }
+      
+      p {
+        color: var(--muted);
+      }
+      
+      .container {
+        width: min(calc(100% - 32px), 1216px);
+        margin-inline: auto;
+      }
+      
+      .eyebrow {
+        font-size: 12px;
+        line-height: 1.4;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--faint);
+        font-weight: 700;
+      }
+      
+      .btn {
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+        transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      }
+      
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      
+      .btn.primary {
+        background: var(--text);
+        border-color: var(--text);
+        color: var(--inverse);
+      }
+      
+      :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 3px;
+      }
+      
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+        background: color-mix(in srgb, var(--bg) 86%, transparent);
+        backdrop-filter: blur(16px);
+      }
+      
+      .header {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      nav {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      
+      nav a:hover {
+        color: var(--text);
+      }
+      
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      
+      .icon {
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--surface);
+        transition: background .2s ease, transform .2s ease;
+      }
+      
+      .icon:hover {
+        background: var(--surface-2);
+        transform: rotate(8deg);
+      }
+      
+      .icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      /* HÁTTÉR KÉP VAGY VIDEÓ MÉRETE Hero: a right-side content panel has intentionally been removed. */
+      .hero {
+        position: relative;
+        min-height: calc(0svh - 0px);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        z-index: -3;
+      }
+      
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transform: scale(1);
+        animation: heroDrift 18s ease-in-out infinite alternate;
+      }
+      
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background: linear-gradient(180deg, color-mix(in srgb, var(--overlay) 78%, transparent), var(--overlay));
+      }
+      
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: radial-gradient(circle at center, transparent 0 26%, rgba(0, 0, 0, .18) 86%);
+        pointer-events: none;
+      }
+      
+      .hero-inner {
+        width: min(calc(100% - 32px), 1000px);
+        margin: auto;
+        padding: clamp(88px, 12vw, 150px) 0;
+        display: grid;
+        justify-items: center;
+        text-align: center;
+        gap: 24px;
+        color: var(--hero-text);
+      }
+      
+      .hero-inner .eyebrow {
+        color: rgba(255, 250, 244, .7);
+      }
+      
+      .hero-inner h1 {
+        font-size: clamp(32px, 4vw, 52px);
+        max-width: 30ch;
+        text-shadow: 0 3px 30px rgba(0, 0, 0, .18);
+      }
+      
+      .hero-inner p {
+        font-size: clamp(17px, 1.6vw, 22px);
+        max-width: 40rem;
+        color: var(--hero-muted);
+      }
+      
+      .hero-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      
+      .hero .btn {
+        border-color: rgba(255, 255, 255, .5);
+        color: var(--hero-text);
+        background: rgba(16, 13, 12, .18);
+        backdrop-filter: blur(9px);
+      }
+      
+      .hero .btn.primary {
+        background: var(--hero-text);
+        color: #211a16;
+        border-color: var(--hero-text);
+      }
+      
+      .hero-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: rgba(255, 250, 244, .7);
+        font-size: 14px;
+      }
+      
+      .hero-note::before {
+        content: "";
+        width: 42px;
+        height: 1px;
+        background: var(--accent);
+      }
+      
+      .media-hint {
+        position: absolute;
+        right: 24px;
+        bottom: 20px;
+        z-index: 2;
+        padding: 7px 12px;
+        border: 1px solid rgba(255, 255, 255, .25);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, .65);
+        background: rgba(0, 0, 0, .18);
+        backdrop-filter: blur(8px);
+        font-size: 11px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      
+      @keyframes heroDrift {
+        from {
+          transform: scale(1.03) translate3d(0, 0, 0);
+        }
+        to {
+          transform: scale(1.08) translate3d(-1.2%, .8%, 0);
+        }
+      }
+      
+      .showcase {
+        padding: clamp(64px, 8vw, 96px) 0;
+      }
+      
+      .showcase-head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 28px;
+        margin-bottom: 24px;
+      }
+      
+      .showcase-head h2 {
+        font-size: clamp(32px, 4vw, 52px);
+        margin-top: 8px;
+      }
+      
+      .showcase-head p {
+        max-width: 520px;
+      }
+      
+
+      
+      .project a {
+        display: grid;
+        gap: 12px;
+      }
+      
+  .media {
+    height: 300px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+  }
+
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .project:hover .media img {
+    transform: scale(1.04);
+  }
+
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .dialog-image {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--surface-2);
+    border-radius: 16px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    display: block;
+  }
+      
+      .art {
+        width: 112%;
+        height: 100%;
+        transform: translateX(0);
+        transition: transform .7s cubic-bezier(.16, 1, .3, 1);
+      }
+      
+      .project:hover .art, .project:focus-within .art {
+        transform: translateX(-7%);
+      }
+      
+      .art svg {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: center;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .12em;
+        color: var(--faint);
+      }
+      
+      .pill {
+        padding: 3px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+      
+      .project h3 {
+        font-size: 31px;
+      }
+      
+      .marquee {
+        padding: 15px 0;
+        border-block: 1px solid var(--line);
+        overflow: hidden;
+      }
+      
+      .marquee-row {
+        display: flex;
+        gap: 38px;
+        white-space: nowrap;
+        overflow: auto;
+        scrollbar-width: none;
+        color: var(--faint);
+        font-size: 13px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      
+      .section {
+        padding: clamp(40px, 2vw, 120px) 0;
+      }
+      
+      .section-head {
+        max-width: 1200px;
+        margin-bottom: 36px;
+        text-align: center;
+      }
+      
+      .section-head h2 {
+        font-size: clamp(32px, 4vw, 52px);
+        margin: 12px 0;
+      }
+      
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      
+      .card {
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        box-shadow: 0 1px 2px color-mix(in srgb, var(--text) 7%, transparent);
+      }
+      
+      .placeholder {
+        aspect-ratio: 1.12/1;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        background: linear-gradient(145deg, color-mix(in srgb, var(--primary) 18%, var(--surface)), color-mix(in srgb, var(--accent) 20%, var(--surface-2)));
+        display: grid;
+        place-items: end start;
+        padding: 16px;
+        color: var(--text);
+        font-size: 12px;
+        letter-spacing: .16em;
+      }
+      
+      .card h3 {
+        font-size: 32px;
+        margin: 9px 0;
+      }
+      
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+      
+      .copy, .quote, .contact {
+        padding: 32px;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: var(--surface);
+      }
+      
+      .copy h2, .contact h2 {
+        font-size: 32px;
+        margin: 12px 0 20px;
+      }
+      
+      .quote blockquote {
+        font-family: var(--display);
+        font-size: 32px;
+        line-height: 1.08;
+      }
+      
+      .quote cite {
+        display: block;
+        margin-top: 20px;
+        color: var(--muted);
+        font-style: normal;
+      }
+      
+      .contact-section {
+        padding: 80px 0;
+      }
+
+      .contact-card {
+        padding: clamp(32px, 6vw, 64px);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: var(--surface);
+        text-align: center;
+      }
+
+      .contact-card h2 {
+        margin-bottom: 16px;
+        font-size: clamp(34px, 5vw, 56px);
+      }
+
+      .contact-card > p {
+        max-width: 650px;
+        margin-inline: auto;
+      }
+
+      .contact-location {
+        margin-top: 28px;
+      }
+
+      .footer {
+        padding: 40px 0 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+
+      .footer-brand strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text);
+        font-family: var(--display);
+        font-size: 20px;
+      }
+
+      .footer-contacts {
+        display: grid;
+        gap: 12px;
+      }
+
+      .footer-contact {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: color .2s ease;
+      }
+
+      a.footer-contact:hover {
+        color: var(--text);
+      }
+
+      .footer-contact svg {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 auto;
+        color: var(--accent);
+      }
+
+      .footer-bottom {
+        margin-top: 32px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        text-align: center;
+        font-size: 13px;
+      }
+
+      .calm-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent),
+                    0 0 18px color-mix(in srgb, var(--accent) 65%, transparent);
+        pointer-events: none;
+        opacity: 0;
+        transform: translate3d(-100px, -100px, 0);
+        transition: opacity .35s ease;
+        will-change: transform;
+      }
+
+      .calm-cursor.is-visible {
+        opacity: .9;
+      }
+      
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: .7s cubic-bezier(.16, 1, .3, 1);
+      }
+      
+      [data-reveal].show {
+        opacity: 1;
+        transform: none;
+      }
+      
+      @media(max-width: 960px) {
+        .split {
+          grid-template-columns: 1fr;
+        }
+
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        nav {
+          display: none;
+        }
+      }
+      
+      @media(max-width: 620px) {
+        .brand small, .actions .btn {
+          display: none;
+        }
+        .footer-content {
+          display: grid;
+        }
+        .hero {
+          min-height: calc(0svh - 0px);
+        }
+        .hero-inner h1 {
+          font-size: 32px;
+        }
+        .hero-inner {
+          gap: 20px;
+        }
+        .media-hint {
+          display: none;
+        }
+        .showcase-head {
+          display: grid;
+        }
+
+        .media {
+          height: 300px;
+        }
+        .copy h2, .contact h2 {
+          font-size: 32px;
+        }
+      }
+      
+      @media(pointer: coarse), (prefers-reduced-motion: reduce) {
+        .calm-cursor {
+          display: none;
+        }
+      }
+
+      @media(prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .hero-media img {
+          animation: none;
+          transform: none;
+        }
+        [data-reveal] {
+          opacity: 1;
+          transform: none;
+        }
+        .art {
+          transition: none;
+        }
+        .project:hover .art {
+          transform: none;
+        }
+      }
+
+      .logo-wrapper {
+        background-image: url('kleam_fullogo_brown.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 150px;
+        height: 44px;
+        display: block;
+      }
+      
+      [data-theme="dark"] .logo-wrapper {
+        background-image: url('kleam_fullogo_orange.svg');
+      }
+    </style>
+
+    <style>
+    /* Módosított rács: 2 oszlopos elrendezés a 4 helyett */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    
+    /* Részletek gomb a kártyákon */
+    .project-action {
+      margin-top: 20px;
+    }
+    
+    /* Felugró ablak (Modal) stílusai */
+    dialog {
+      margin: auto;
+      padding: 48px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      color: var(--text);
+      width: min(calc(100% - 32px), 900px);
+      box-shadow: var(--shadow);
+    }
+    
+    dialog::backdrop {
+      background: var(--overlay);
+      backdrop-filter: blur(6px);
+    }
+    
+    .dialog-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    
+      .dialog-close:hover {
+        transform: rotate(90deg);
+        background: var(--line);
+      }
+      
+    .dialog-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .dialog-image {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface-2);
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      display: block;
+    }
+      
+      .dialog-price {
+        padding: 8px 16px;
+        background: var(--accent);
+        color: var(--inverse);
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: .05em;
+        margin-top: 8px;
+      }
+      
+      @media(max-width: 620px) {
+        .showcase-grid {
+          grid-template-columns: 1fr;
+        }
+        dialog {
+          padding: 32px 20px;
+        }
+      }
+  </style>
+
+</head>
+<body>
+  <header>
+    <div class="container header">
+      <a class="brand" href="#top">
+        <div class="logo-wrapper"></div>
+      </a>
+      <nav aria-label="Fő navigáció">
+        <a href="#szolgaltatasok">Szolgáltatások</a>
+        <a href="#rolam">Rólam</a>
+        <a href="#modszertan">Módszertan</a>
+      </nav>
+      <div class="actions">
+        <a class="btn" href="#kapcsolat">Kapcsolat</a>
+        <button class="icon" type="button" data-theme-toggle aria-label="Váltás sötét módra"></button>
+      </div>
+    </div>
+  </header>
+  
+  <main id="top">
+    <section class="hero">
+      <div class="hero-media" aria-hidden="true">
+        <video src="mainvideo.mov" width="1920" height="1080" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+      </div>
+      <div class="hero-inner" data-reveal>
+        
+        <h1>Ajurvédikus kezelés,</h1>
+        <h1>holisztikus szemlélettel</h1>
+        <p>Professzionális műszerekkel és tudásommal segítek az embereknek. Gyógyulj velem!</p>
+        <br>
+        <div class="hero-buttons">
+          <a class="btn primary" href="#szolgaltatasok">Szolgáltatásaim</a>
+          <a class="btn" href="#rolam">Garancia</a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="marquee">
+      <div class="container marquee-row">
+        <span>állapotfelmérés</span>
+        <span>kineziológia</span>
+        <span>jóga-tanácsadás</span>
+        <span>biorezonancia</span>
+        <span>szellemgyógyászat</span>
+        <span>online és helyszíni lehetőségek</span>
+      </div>
+    </div>
+
+    <section class="showcase" id="szolgaltatasok">
+  <div class="container">
+    <section class="section" id="rolam">
+      <div class="container" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 48px;">
+        <div data-reveal>
+          <h2 style="font-size: clamp(36px, 4vw, 48px); margin: 12px 0 20px;">Bodnár Szintia</h2>
+          <p> Hi, I’m Ash - a proud Lakota woman, and designer with more than a decade of brand-building experience. </p>
+          <br>
+          <p> AHi, I’m Ash - a proud Lakota woman, and designer with more than a decade of brand-building experience.i, I’m Ash - a proud Lakota woman, and designer with more than a decade of brand-building experience. </p>
+          <p style="color: var(--muted); line-height: 1.7;">Hi, I’m Ash - a proud Lakota woman, and designer with more than a decade of brand-building experience. In 2023, I founded my own studio, Slow Down Creative, to help mission-driven brands build lasting identities through intentional design. I believe design holds powerful potential, and I'm passionate about using it to create the kind of change I want to see in the world.</p>
+        <br>
+        <p> Hi, I’m Ash - a proud Lakota woman, and designer with more than a decade of brand-building experience. </p>
+        </div>
+      
+        <div data-reveal style="position: relative;">
+          <div style="border-radius: 24px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4/3; background: var(--surface-2);">
+            <img src="photos/profilkep.jpg" alt="Ash" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px;">
+            <div>
+              <span class="eyebrow" style="display: block; margin-bottom: 4px;">FOUNDER & DESIGNER</span>
+              <strong style="font-size: 20px; font-family: var(--display);">Ashley Zimiga</strong>
+              <small style="display: block; color: var(--faint);">(She/Her)</small>
+            </div>
+            <div style="text-align: right; color: var(--muted);">
+              <a href="#" style="text-decoration: underline; display: block; margin-bottom: 8px; font-weight: 600; color: var(--text);">LINKEDIN</a>
+              <span>SUN / LEO</span><br>
+              <span>MOON / LIBRA</span><br>
+              <span>RISING / LIBRA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<br>
+    <div class="showcase-head" data-reveal>
+      <div>
+        <span class="eyebrow"></span>
+        <h2>Kisebb képes elemek finom mozgással.</h2>
+      </div>
+      <p>Hover állapotban a kép enyhén balra csúszik a dobozon belül, így a sor visszafogott, prémium mozgást kap.</p>
+    </div>
+    <br>
+
+    <div class="showcase-grid">
+
+      <!-- 1. Kártya -->
+      <article class="project" data-reveal>
+        <a href="javascript:void(0)" onclick="document.getElementById('modal-1').showModal()">
+          <div class="media">
+            <img src="biorezonanciakep.jpg" alt="Biorezonancia állapotfelmérés">
+          </div>
+          <div>
+            <div class="meta">
+              <span>Szolgáltatás</span>
+              <span class="pill">kiemelt</span>
+            </div>
+            <h3>Biorezonancia állapotfelmérés</h3>
+            <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
+            <div class="project-action">
+              <span class="btn">Részletek</span>
+            </div>
+          </div>
+        </a>
+        <dialog id="modal-1" onclick="if (event.target === this) this.close()">
+          <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+          <div class="dialog-content">
+            <img class="dialog-image" src="biorezonanciakep.jpg" alt="Biorezonancia állapotfelmérés">
+            <h2>Biorezonancia állapotfelmérés</h2>
+            <p>A biorezonancia fájdalommentes, gyors és kíméletes módszer, amely vérvétel vagy orvosi beavatkozás nélkül vizsgálja a test működését. A mérés kb. egy órát vesz igénybe, és nem kell hozzá levetkőzni: a tenyérre helyezett érzékelő a test elektromágneses rezgéseit rögzíti. A rendszer azt az elvet követi, hogy a sejtek és szervek saját frekvenciával rendelkeznek, amely stressz vagy környezeti hatások miatt megváltozhat. Az eredményből képet kapsz arról, hol lehet szükség egyensúlyra, és ehhez személyre szabott javaslatokat kapsz. A módszer kiegészítő jellegű, orvosi vizsgálatot vagy kezelést nem helyettesít.</p>
+            <div class="dialog-price">15 000 Ft</div>
+          </div>
+        </dialog>
+      </article>
+
+      <!-- 2. Kártya -->
+      <article class="project" data-reveal>
+        <a href="javascript:void(0)" onclick="document.getElementById('modal-2').showModal()">
+          <div class="media">
+            <img src="photos/sztresszkezeles.jpg" alt="Stresszkezelés, energetikai vizsgálat">
+          </div>
+          <div>
+            <div class="meta">
+              <span>Stresszkezelés, energetikai vizsgálat</span>
+              <span class="pill">személyes</span>
+            </div>
+            <h3>Stresszkezelés, energetikai vizsgálat</h3>
+            <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
+            <div class="project-action">
+              <span class="btn">Részletek</span>
+            </div>
+          </div>
+        </a>
+        <dialog id="modal-2" onclick="if (event.target === this) this.close()">
+          <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+          <div class="dialog-content">
+            <img class="dialog-image" src="photos/sztresszkezeles.jpg" alt="Stresszkezelés, energetikai vizsgálat">
+            <h2>Stresszkezelés, energetikai vizsgálat</h2>
+            <p>A stresszfelmérés során szenzorok segítségével látható, hogyan reagál a szervezeted a mentális és érzelmi terhelésre. Egy ilyen vizsgálat például a pulzust, a légzésmintázatot, a bőr vezetőképességét és az izomfeszülést követi, így a stressz testi jelei mérhetővé válnak. Az energetikai szemlélet ehhez a test egyensúlyát és az elakadt területeket keresi. A beszélgetés és a mérés után megtudod, mi terhel leginkább, és kapsz egyszerű, mindennap alkalmazható légzés- és levezetési technikákat. Az alkalom célja a nyugodtabb, kiegyensúlyozottabb hétköznap.</p>
+            <div class="dialog-price">18 000 Ft</div>
+          </div>
+        </dialog>
+      </article>
+
+      <!-- 3. Kártya -->
+      <article class="project" data-reveal>
+        <a href="javascript:void(0)" onclick="document.getElementById('modal-3').showModal()">
+          <div class="media">
+            <img src="photos/eletmod.jpg" alt="Életmód tanácsadás">
+          </div>
+          <div>
+            <div class="meta">
+              <span>Online / helyszíni</span>
+              <span class="pill">rugalmas</span>
+            </div>
+            <h3>Életmód tanácsadás</h3>
+            <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
+            <div class="project-action">
+              <span class="btn">Részletek</span>
+            </div>
+          </div>
+        </a>
+        <dialog id="modal-3" onclick="if (event.target === this) this.close()">
+          <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+          <div class="dialog-content">
+            <img class="dialog-image" src="photos/eletmod.jpg" alt="Életmód tanácsadás">
+            <h2>Életmód tanácsadás</h2>
+            <p>Az életmód tanácsadás abból indul ki, hogy minden embernek más az élethelyzete, a terhelhetősége és az igénye. A ganzheitlichen szemléletű központok is az egyéni igényekre szabott, időt hagyó foglalkozást tartják fontosnak, és a mozgást, a jógát és a testtudatosságot egymást kiegészítő elemekként kezelik. Közösen átnézzük a napi ritmusodat, az alvásodat, a mozgásodat és a stresszforrásaidat. Ebből kis, jól követhető lépéseket állítunk össze, amelyeket valóban be tudsz építeni a mindennapokba. A jóga-tanácsadás is ide kapcsolódhat, online vagy helyszínen.</p>
+            <div class="dialog-price">12 000 Ft</div>
+          </div>
+        </dialog>
+      </article>
+
+      <!-- 4. Kártya -->
+      <article class="project" data-reveal>
+        <a href="javascript:void(0)" onclick="document.getElementById('modal-4').showModal()">
+          <div class="media">
+            <img src="photos/kineziologia.jpg" alt="Kineziológia">
+          </div>
+          <div>
+            <div class="meta">
+              <span>Energetikai mérés</span>
+              <span class="pill">finom</span>
+            </div>
+            <h3>Kineziológia</h3>
+            <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
+            <div class="project-action">
+              <span class="btn">Részletek</span>
+            </div>
+          </div>
+        </a>
+        <dialog id="modal-4" onclick="if (event.target === this) this.close()">
+          <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+          <div class="dialog-content">
+            <img class="dialog-image" src="photos/kineziologia.jpg" alt="Kineziológia">
+            <h2>Kineziológia</h2>
+            <p>A kineziológia a természetgyógyászat egyik ága, amely a testet, a lelket és a szellemet együtt szemlélve keresi a harmónia helyreállítását. A kezelés nyugodt, bizalmas környezetben zajlik, és beszélgetéssel indul: tisztázzuk, mi a gond, és mit szeretnél elérni. Ezt követi az izomtesztelés, amellyel a terapeuta a testben tárolt stresszt és érzelmi blokkokat keresi. A feloldáshoz személyre szabott technikákat használunk, például akupresszúrát, légzéstechnikákat vagy vizualizációt. Végig aktívan részt veszel a folyamatban, ami segíti a tartós változást.</p>
+            <div class="dialog-price">22 000 Ft</div>
+          </div>
+        </dialog>
+      </article>
+
+    </div>
+  </div>
+</section>
+    
+<section class="section" id="modszertan">
+      <div class="container" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 48px;">
+        <div data-reveal>
+          <span class="eyebrow"></span>
+          <h2 style="font-size: clamp(36px, 4vw, 48px); margin: 12px 0 20px;">Módszertan</h2>
+          <p style="color: var(--muted); line-height: 1.7;">Hi, I’m Ash - a proud Lakota woman, and designer with more than</p>
+          <br>
+          <p style="color: var(--muted); line-height: 1.7;">Hi, I’m Ash - a proud Lakota woman, and designer with more than a decade of brand-building experience. In 2023, I founded my own studio, Slow Down Creative, to help mission-driven brands build lasting identities through intentional design. I believe design holds powerful potential, and I'm passionate about using it to create the kind of change I want to see in the world.</p>
+          <br>
+          <p style="color: var(--muted); line-height: 1.7;">Hi, I’m Ash - a proud Lakota woman, and designer with more thanHi, I’m Ash - a proud Lakota woman, and designer with more thanHi, I’m Ash - a proud Lakota woman, and designer with more than</p>
+        </div>
+        <div data-reveal style="position: relative;">
+          <div style="border-radius: 24px; overflow: hidden; border: 1px solid var(--line); size: width 500px height 300px; background: var(--surface-2);">
+            <img src="photos/biorezonanciakep.jpg" alt="Ash" style="width: 100%; height: 30%; object-fit: cover;">
+            <br>
+            <img src="photos/biorezonanciakep.jpg" alt="Ash" style="width: 100%; height: 30%; object-fit: cover;">
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    
+  <section class="contact-section" id="kapcsolat">
+    <div class="container">
+      <div class="contact-card" data-reveal>
+        <h2>Kérdésed van? Vedd fel velem a kapcsolatot!</h2>
+        <p>Egyeztessünk személyes vagy online találkozót e-mailben vagy telefonon.</p>
+        <div class="hero-buttons" style="margin-top: 28px;">
+          <a class="btn primary" href="mailto:hello@hollisztika.hu" target="_blank" rel="noopener noreferrer">E-mail írása</a>
+          <!-- TODO: A tel: után írd be a valódi telefonszámot, például: tel:+36301234567 -->
+          <a class="btn primary" href="tel:" aria-label="Telefonhívás – a telefonszám hamarosan elérhető">Telefon (hamarosan)</a>
+        </div>
+        <p class="contact-location">A vizsgálatok és egyéb személyes foglalkozások helyszíne: Felsőzsolca.</p>
+        <div class="hero-buttons" style="margin-top: 18px;">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Fels%C5%91zsolca" target="_blank" rel="noopener noreferrer">Megnyitás a Google Térképen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <strong>Bodnár Szintia</strong>
+          <p>Holisztikus szemléletű szolgáltatások</p>
+        </div>
+        <div class="footer-contacts" aria-label="Kapcsolati adatok">
+          <a class="footer-contact" href="mailto:hello@hollisztika.hu" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <span>hello@hollisztika.hu</span>
+          </a>
+          <!-- TODO: A végleges telefonszám megadásakor cseréld le a szöveget és a tel: hivatkozást. -->
+          <span class="footer-contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Telefonszám hamarosan</span>
+          </span>
+          <a class="footer-contact" href="https://www.google.com/maps/search/?api=1&amp;query=Fels%C5%91zsolca" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Felsőzsolca</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Bodnár Szintia – Minden jog fenntartva.</div>
+    </div>
+  </footer>
+
+  <div class="calm-cursor" aria-hidden="true"></div>
+  
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const moon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      const sun = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>';
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      
+      function applyTheme(next) {
+        theme = next;
+        root.setAttribute('data-theme', theme);
+        toggle.innerHTML = theme === 'dark' ? sun : moon;
+        toggle.setAttribute('aria-label', theme === 'dark' ? 'Váltás világos módra' : 'Váltás sötét módra');
+      }
+      
+      applyTheme(theme);
+      toggle.addEventListener('click', () => applyTheme(theme === 'dark' ? 'light' : 'dark'));
+      
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) {
+        document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('show'));
+        return;
+      }
+      
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+      
+      document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+      const calmCursor = document.querySelector('.calm-cursor');
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+      if (calmCursor && finePointer) {
+        let targetX = window.innerWidth / 2;
+        let targetY = window.innerHeight / 2;
+        let currentX = targetX;
+        let currentY = targetY;
+
+        window.addEventListener('pointermove', event => {
+          targetX = event.clientX;
+          targetY = event.clientY;
+          calmCursor.classList.add('is-visible');
+        }, { passive: true });
+
+        document.documentElement.addEventListener('mouseleave', () => {
+          calmCursor.classList.remove('is-visible');
+        });
+
+        document.documentElement.addEventListener('mouseenter', () => {
+          calmCursor.classList.add('is-visible');
+        });
+
+        const followPointer = () => {
+          currentX += (targetX - currentX) * 0.075;
+          currentY += (targetY - currentY) * 0.075;
+          calmCursor.style.transform = `translate3d(${currentX - 5}px, ${currentY - 5}px, 0)`;
+          requestAnimationFrame(followPointer);
+        };
+
+        requestAnimationFrame(followPointer);
+      }
+    })();
+  </script>
+</body>
+</html>
