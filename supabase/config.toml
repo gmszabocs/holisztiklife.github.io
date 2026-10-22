@@ -1,0 +1,7 @@
+project_id = "REPLACE_WITH_SUPABASE_PROJECT_ID"
+
+[functions.availability]
+verify_jwt = false
+
+[functions.book]
+verify_jwt = false

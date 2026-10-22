@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hamarosan | holistiklife.com</title>
+  
+  <!-- SEO Meta Tagek -->
+  <meta name="description" content="Hamarosan indul a Hollisztika! Holisztikus szemléletű életmódvezetés, biorezonancia állapotfelmérés, kineziológia, jóga-tanácsadás és energetikai vizsgálat Felsőzsolcán.">
+  <meta name="keywords" content="hollisztika, holisztikus életmód, kineziológia, biorezonancia, állapotfelmérés, jóga-tanácsadás, energetikai vizsgálat, Bodnár Szintia, stresszkezelés, egészség, Felsőzsolca">
+  <meta name="author" content="Bodnár Szintia">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@200;400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #ECE7DC;
+      --text: #261d17;
+      --display: 'Google Sans Flex', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh; /* Jobb mobilos megjelenésért (Safari/Chrome viewport) */
+      font-family: var(--display);
+      background-color: var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px; /* Távolság a szöveg és a logó között */
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 80px);
+      font-weight: 200; /* Vékony, elegáns betűvastagság */
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .logo {
+      width: clamp(200px, 60vw, 350px);
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="content-wrapper">
+    <h1>Hamarosan...</h1>
+    <img src="holisztik_logo_black.svg" alt="Hollisztika Logó" class="logo">
+  </main>
+</body>
+</html>

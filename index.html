@@ -5,9 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Hollisztika – Főoldal</title>
   <meta name="description" content="Hollisztika szolgáltatások és belső egyensúly.">
+
+    <!-- SEO Meta Tagek -->
+  <meta name="description" content="Hamarosan indul a Hollisztika! Holisztikus szemléletű életmódvezetés, biorezonancia állapotfelmérés, kineziológia, jóga-tanácsadás és energetikai vizsgálat Felsőzsolcán.">
+  <meta name="keywords" content="hollisztika, holisztikus életmód, kineziológia, biorezonancia, állapotfelmérés, jóga-tanácsadás, energetikai vizsgálat, Bodnár Szintia, stresszkezelés, egészség, Felsőzsolca">
+  <meta name="author" content="Bodnár Szintia">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta property="og:image" content="megosztasikep.jpg">
+
   <style>
       :root, [data-theme="light"] {
         --bg: #ECE7DC;
@@ -195,6 +205,46 @@
       .icon svg {
         width: 20px;
         height: 20px;
+      }
+
+      .language-picker {
+        position: relative;
+      }
+
+      .language-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        z-index: 40;
+        min-width: 148px;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .language-menu[hidden] {
+        display: none;
+      }
+
+      .language-option {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 9px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .language-option:hover,
+      .language-option[aria-pressed="true"] {
+        background: var(--surface-2);
+      }
+
+      .language-option[aria-pressed="true"]::after {
+        content: "✓";
+        float: right;
       }
       
       /* HÁTTÉR KÉP VAGY VIDEÓ MÉRETE Hero: a right-side content panel has intentionally been removed. */
@@ -797,15 +847,89 @@
     }
       
       .dialog-price {
-        padding: 8px 16px;
-        background: var(--accent);
-        color: var(--inverse);
-        border-radius: 999px;
-        font-weight: 700;
-        font-size: 15px;
-        letter-spacing: .05em;
-        margin-top: 8px;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 16px;
+        font-weight: 800;
       }
+
+      .booking-trigger {
+        margin-top: 4px;
+      }
+
+      .booking-dialog {
+        width: min(1200px, calc(100% - 32px));
+        max-height: calc(100dvh - 32px);
+        padding: 24px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+      .booking-dialog .dialog-content { gap: 16px; }
+      .booking-dialog h2 { padding-right: 56px; }
+      .booking-dialog .dialog-close { position: sticky; top: 0; float: right; z-index: 5; margin-bottom: -44px; }
+      body.booking-open { overflow: hidden; }
+      .booking-calendar-status[hidden], #booking-retry[hidden] { display: none; }
+      @media(max-width: 620px) {
+        dialog.booking-dialog { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; padding: 16px 8px; border-radius: 0; }
+        .booking-dialog .booking-summary { grid-template-columns: 64px 1fr; gap: 10px; }
+        .booking-dialog .booking-service-image { width: 64px; height: 56px; }
+        .booking-dialog h2 { font-size: 28px; }
+      }
+
+      .booking-dialog h2 {
+        font-size: clamp(32px, 5vw, 46px);
+        margin: 0;
+      }
+
+      .booking-summary {
+        display: grid;
+        grid-template-columns: 112px 1fr;
+        align-items: center;
+        gap: 18px;
+        width: 100%;
+      }
+
+      .booking-service-image {
+        width: 112px;
+        height: 84px;
+        border-radius: 14px;
+        object-fit: cover;
+        border: 1px solid var(--line);
+      }
+
+      .booking-summary strong {
+        display: block;
+        font-family: var(--display);
+        font-size: clamp(20px, 3vw, 26px);
+        line-height: 1.15;
+      }
+
+      .booking-summary p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .booking-date-row { display: grid; gap: 8px; width: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-2); font-weight: 800; }
+      .booking-date-row label::before { content: '1'; display: inline-grid; place-items: center; width: 24px; height: 24px; margin-right: 8px; border-radius: 50%; background: var(--primary); color: var(--inverse); font-size: 13px; }
+      .booking-date-row input { width: 100%; max-width: 300px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; font: inherit; color: var(--text); background: var(--surface); }
+      .booking-slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 10px; width: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+      .booking-slots::before { content: '2  Válassz szabad időpontot'; grid-column: 1 / -1; color: var(--muted); font-size: 14px; font-weight: 800; }
+      .booking-slot { min-height: 52px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); font: inherit; font-size: 16px; font-weight: 800; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+      .booking-slot:hover { transform: translateY(-2px); border-color: var(--primary); }
+      .booking-slot:hover, .booking-slot.is-selected { border-color: var(--primary); background: var(--primary); color: var(--inverse); }
+      .booking-form { display: grid; gap: 14px; width: 100%; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-2); }
+      .booking-form::before { content: '3  Add meg az elérhetőségeidet'; color: var(--muted); font-size: 14px; font-weight: 800; }
+      .booking-field { display: grid; gap: 6px; font-weight: 700; }
+      .booking-field input, .booking-field textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); font: inherit; }
+      .booking-field textarea { min-height: 86px; resize: vertical; }
+      .booking-consent { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); font-size: 14px; }
+      .booking-consent input { margin-top: 5px; accent-color: var(--primary); }
+      .booking-consent a { text-decoration: underline; color: var(--text); }
+      .booking-calendar-status { width: 100%; margin: 0; padding: 0 4px; color: var(--muted); font-weight: 700; }
+      .booking-calendar-status.is-error { color: #a83232; }
+
+
       
       @media(max-width: 620px) {
         .showcase-grid {
@@ -831,6 +955,15 @@
       </nav>
       <div class="actions">
         <a class="btn" href="#kapcsolat">Kapcsolat</a>
+        <div class="language-picker">
+          <button class="icon" type="button" data-language-toggle aria-label="Nyelvválasztó megnyitása" aria-expanded="false" aria-controls="language-menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.9 14.9 0 0 1 0 18M12 3a14.9 14.9 0 0 0 0 18"/></svg>
+          </button>
+          <div class="language-menu" id="language-menu" hidden>
+            <button class="language-option" type="button" data-language="hu" aria-pressed="true">Magyar</button>
+            <button class="language-option" type="button" data-language="de" aria-pressed="false">Deutsch</button>
+          </div>
+        </div>
         <button class="icon" type="button" data-theme-toggle aria-label="Váltás sötét módra"></button>
       </div>
     </div>
@@ -919,13 +1052,13 @@
           </div>
           <div>
             <div class="meta">
-              <span>Szolgáltatás</span>
-              <span class="pill">kiemelt</span>
+              <span></span>
+              <span class="pill">Személyes</span>
             </div>
             <h3>Biorezonancia állapotfelmérés</h3>
             <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
             <div class="project-action">
-              <span class="btn">Részletek</span>
+              <span class="btn">Részletek és időpontfoglalás</span>
             </div>
           </div>
         </a>
@@ -935,7 +1068,8 @@
             <img class="dialog-image" src="biorezonanciakep.jpg" alt="Biorezonancia állapotfelmérés">
             <h2>Biorezonancia állapotfelmérés</h2>
             <p>A biorezonancia fájdalommentes, gyors és kíméletes módszer, amely vérvétel vagy orvosi beavatkozás nélkül vizsgálja a test működését. A mérés kb. egy órát vesz igénybe, és nem kell hozzá levetkőzni: a tenyérre helyezett érzékelő a test elektromágneses rezgéseit rögzíti. A rendszer azt az elvet követi, hogy a sejtek és szervek saját frekvenciával rendelkeznek, amely stressz vagy környezeti hatások miatt megváltozhat. Az eredményből képet kapsz arról, hol lehet szükség egyensúlyra, és ehhez személyre szabott javaslatokat kapsz. A módszer kiegészítő jellegű, orvosi vizsgálatot vagy kezelést nem helyettesít.</p>
-            <div class="dialog-price">15 000 Ft</div>
+            <div class="dialog-price">Szolgáltatás ára: 15 000 Ft</div>
+            <button class="btn primary booking-trigger" type="button" data-service="Biorezonancia állapotfelmérés" data-price="15 000 Ft" data-image="biorezonanciakep.jpg" data-service-id="biorezonancia" onclick="openBookingModal(this)">Időpont foglalása</button>
           </div>
         </dialog>
       </article>
@@ -948,13 +1082,13 @@
           </div>
           <div>
             <div class="meta">
-              <span>Stresszkezelés, energetikai vizsgálat</span>
-              <span class="pill">személyes</span>
+              <span></span>
+              <span class="pill">Személyes és Online</span>
             </div>
             <h3>Stresszkezelés, energetikai vizsgálat</h3>
             <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
             <div class="project-action">
-              <span class="btn">Részletek</span>
+              <span class="btn">Részletek és időpontfoglalás</span>
             </div>
           </div>
         </a>
@@ -964,7 +1098,8 @@
             <img class="dialog-image" src="photos/sztresszkezeles.jpg" alt="Stresszkezelés, energetikai vizsgálat">
             <h2>Stresszkezelés, energetikai vizsgálat</h2>
             <p>A stresszfelmérés során szenzorok segítségével látható, hogyan reagál a szervezeted a mentális és érzelmi terhelésre. Egy ilyen vizsgálat például a pulzust, a légzésmintázatot, a bőr vezetőképességét és az izomfeszülést követi, így a stressz testi jelei mérhetővé válnak. Az energetikai szemlélet ehhez a test egyensúlyát és az elakadt területeket keresi. A beszélgetés és a mérés után megtudod, mi terhel leginkább, és kapsz egyszerű, mindennap alkalmazható légzés- és levezetési technikákat. Az alkalom célja a nyugodtabb, kiegyensúlyozottabb hétköznap.</p>
-            <div class="dialog-price">18 000 Ft</div>
+            <div class="dialog-price">Szolgáltatás ára: 18 000 Ft</div>
+            <button class="btn primary booking-trigger" type="button" data-service="Stresszkezelés, energetikai vizsgálat" data-price="18 000 Ft" data-image="photos/sztresszkezeles.jpg" data-service-id="stresszkezeles" onclick="openBookingModal(this)">Időpont foglalása</button>
           </div>
         </dialog>
       </article>
@@ -977,13 +1112,13 @@
           </div>
           <div>
             <div class="meta">
-              <span>Online / helyszíni</span>
-              <span class="pill">rugalmas</span>
+              <span></span>
+              <span class="pill">Személyes</span>
             </div>
             <h3>Életmód tanácsadás</h3>
             <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
             <div class="project-action">
-              <span class="btn">Részletek</span>
+              <span class="btn">Részletek és időpontfoglalás</span>
             </div>
           </div>
         </a>
@@ -993,7 +1128,8 @@
             <img class="dialog-image" src="photos/eletmod.jpg" alt="Életmód tanácsadás">
             <h2>Életmód tanácsadás</h2>
             <p>Az életmód tanácsadás abból indul ki, hogy minden embernek más az élethelyzete, a terhelhetősége és az igénye. A ganzheitlichen szemléletű központok is az egyéni igényekre szabott, időt hagyó foglalkozást tartják fontosnak, és a mozgást, a jógát és a testtudatosságot egymást kiegészítő elemekként kezelik. Közösen átnézzük a napi ritmusodat, az alvásodat, a mozgásodat és a stresszforrásaidat. Ebből kis, jól követhető lépéseket állítunk össze, amelyeket valóban be tudsz építeni a mindennapokba. A jóga-tanácsadás is ide kapcsolódhat, online vagy helyszínen.</p>
-            <div class="dialog-price">12 000 Ft</div>
+            <div class="dialog-price">Szolgáltatás ára: 12 000 Ft</div>
+            <button class="btn primary booking-trigger" type="button" data-service="Életmód tanácsadás" data-price="12 000 Ft" data-image="photos/eletmod.jpg" data-service-id="eletmod-tanacsadas" onclick="openBookingModal(this)">Időpont foglalása</button>
           </div>
         </dialog>
       </article>
@@ -1006,13 +1142,13 @@
           </div>
           <div>
             <div class="meta">
-              <span>Energetikai mérés</span>
-              <span class="pill">finom</span>
+              <span></span>
+              <span class="pill">Személyes</span>
             </div>
             <h3>Kineziológia</h3>
             <p>Alcím, úgymond rövid cím, ide kerül pár karakter ami röviden leírja miről van szó.</p>
             <div class="project-action">
-              <span class="btn">Részletek</span>
+              <span class="btn">Részletek és időpontfoglalás</span>
             </div>
           </div>
         </a>
@@ -1022,7 +1158,68 @@
             <img class="dialog-image" src="photos/kineziologia.jpg" alt="Kineziológia">
             <h2>Kineziológia</h2>
             <p>A kineziológia a természetgyógyászat egyik ága, amely a testet, a lelket és a szellemet együtt szemlélve keresi a harmónia helyreállítását. A kezelés nyugodt, bizalmas környezetben zajlik, és beszélgetéssel indul: tisztázzuk, mi a gond, és mit szeretnél elérni. Ezt követi az izomtesztelés, amellyel a terapeuta a testben tárolt stresszt és érzelmi blokkokat keresi. A feloldáshoz személyre szabott technikákat használunk, például akupresszúrát, légzéstechnikákat vagy vizualizációt. Végig aktívan részt veszel a folyamatban, ami segíti a tartós változást.</p>
-            <div class="dialog-price">22 000 Ft</div>
+            <div class="dialog-price">Szolgáltatás ára: 22 000 Ft</div>
+            <button class="btn primary booking-trigger" type="button" data-service="Kineziológia" data-price="22 000 Ft" data-image="photos/kineziologia.jpg" onclick="openBookingModal(this)">Időpont foglalása</button>
+          </div>
+        </dialog>
+      </article>
+
+      <!-- 5. Kártya -->
+      <article class="project" data-reveal>
+        <a href="javascript:void(0)" onclick="document.getElementById('modal-5').showModal()">
+          <div class="media">
+            <img src="photos/pexels-asadphoto-28843905.jpg" alt="Jóga">
+          </div>
+          <div>
+            <div class="meta">
+              <span>Test és lélek</span>
+              <span class="pill">Személyes</span>
+            </div>
+            <h3>Jóga</h3>
+            <p>Ide kerül majd a Jóga szolgáltatás rövid bemutatása.</p>
+            <div class="project-action">
+              <span class="btn">Részletek és időpontfoglalás</span>
+            </div>
+          </div>
+        </a>
+        <dialog id="modal-5" onclick="if (event.target === this) this.close()">
+          <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+          <div class="dialog-content">
+            <img class="dialog-image" src="photos/pexels-asadphoto-28843905.jpg" alt="Jóga">
+            <h2>Jóga</h2>
+            <p>Ide kerül majd a Jóga szolgáltatás részletes bemutatása.</p>
+            <div class="dialog-price">Ár hamarosan</div>
+            <button class="btn primary booking-trigger" type="button" data-service="Jóga" data-price="Ár hamarosan" data-image="photos/pexels-asadphoto-28843905.jpg" onclick="openBookingModal(this)">Időpont foglalása</button>
+          </div>
+        </dialog>
+      </article>
+
+      <!-- 6. Kártya -->
+      <article class="project" data-reveal>
+        <a href="javascript:void(0)" onclick="document.getElementById('modal-6').showModal()">
+          <div class="media">
+            <img src="photos/pexels-jordicosta-32167957.jpg" alt="Gyermekjóga">
+          </div>
+          <div>
+            <div class="meta">
+              <span>Mozgás örömmel</span>
+              <span class="pill">Személyes</span>
+            </div>
+            <h3>Gyermekjóga</h3>
+            <p>Ide kerül majd a Gyermekjóga szolgáltatás rövid bemutatása.</p>
+            <div class="project-action">
+              <span class="btn">Részletek és időpontfoglalás</span>
+            </div>
+          </div>
+        </a>
+        <dialog id="modal-6" onclick="if (event.target === this) this.close()">
+          <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+          <div class="dialog-content">
+            <img class="dialog-image" src="photos/pexels-jordicosta-32167957.jpg" alt="Gyermekjóga">
+            <h2>Gyermekjóga</h2>
+            <p>Ide kerül majd a Gyermekjóga szolgáltatás részletes bemutatása.</p>
+            <div class="dialog-price">Ár hamarosan</div>
+            <button class="btn primary booking-trigger" type="button" data-service="Gyermekjóga" data-price="Ár hamarosan" data-image="photos/pexels-jordicosta-32167957.jpg" onclick="openBookingModal(this)">Időpont foglalása</button>
           </div>
         </dialog>
       </article>
@@ -1062,11 +1259,11 @@
         <div class="hero-buttons" style="margin-top: 28px;">
           <a class="btn primary" href="mailto:hello@hollisztika.hu" target="_blank" rel="noopener noreferrer">E-mail írása</a>
           <!-- TODO: A tel: után írd be a valódi telefonszámot, például: tel:+36301234567 -->
-          <a class="btn primary" href="tel:" aria-label="Telefonhívás – a telefonszám hamarosan elérhető">Telefon (hamarosan)</a>
+          <a class="btn primary" href="tel:+36703951468" aria-label="Telefonhívás – a telefonszám hamarosan elérhető">Hívás +36 70 / 395-1468</a>
         </div>
-        <p class="contact-location">A vizsgálatok és egyéb személyes foglalkozások helyszíne: Felsőzsolca.</p>
+        <p class="contact-location">A vizsgálatok és egyéb személyes foglalkozások helyszíne megbeszélés alapján ahol neked is megfelel!</p>
         <div class="hero-buttons" style="margin-top: 18px;">
-          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Fels%C5%91zsolca" target="_blank" rel="noopener noreferrer">Megnyitás a Google Térképen</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Fels%C5%91zsolca" target="_blank" rel="noopener noreferrer">Felsőzsolca megnyitása Google Térképen</a>
         </div>
       </div>
     </div>
@@ -1074,30 +1271,61 @@
 
   </main>
 
+  <dialog id="booking-modal" class="booking-dialog" aria-labelledby="booking-title" onclick="if (event.target === this) this.close()">
+    <button class="dialog-close" type="button" onclick="this.closest('dialog').close()" aria-label="Bezárás">✕</button>
+    <div class="dialog-content">
+      <h2 id="booking-title">Időpont foglalása</h2>
+      <div class="booking-summary" aria-live="polite">
+        <img class="booking-service-image" id="booking-service-image" src="" alt="">
+        <div>
+          <strong id="booking-service">Szolgáltatás kiválasztása folyamatban</strong>
+          <p id="booking-price"></p>
+        </div>
+      </div>
+      <div class="booking-date-row">
+        <label for="booking-date">Válassz dátumot</label>
+        <input id="booking-date" type="date" required>
+      </div>
+      <p class="booking-calendar-status" id="booking-status" role="status" hidden></p>
+      <div class="booking-slots" id="booking-slots" aria-label="Elérhető időpontok"></div>
+      <form class="booking-form" id="booking-form">
+        <input type="hidden" id="booking-service-input" name="service">
+        <input type="hidden" id="booking-start" name="start">
+        <input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <div class="booking-field"><label for="booking-name">Név</label><input id="booking-name" name="name" autocomplete="name" required></div>
+        <div class="booking-field"><label for="booking-email">E-mail-cím</label><input id="booking-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="booking-field"><label for="booking-phone">Telefonszám</label><input id="booking-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="booking-field"><label for="booking-note">Megjegyzés <span>(opcionális)</span></label><textarea id="booking-note" name="note"></textarea></div>
+        <label class="booking-consent"><input name="consent" type="checkbox" required><span>Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési tájékoztatót</a>.</span></label>
+        <button class="btn primary" id="booking-submit" type="submit" disabled>Foglalás véglegesítése</button>
+      </form>
+    </div>
+  </dialog>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <strong>Bodnár Szintia</strong>
+          <strong>Bodnár Szintia Linda</strong>
           <p>Holisztikus szemléletű szolgáltatások</p>
         </div>
         <div class="footer-contacts" aria-label="Kapcsolati adatok">
-          <a class="footer-contact" href="mailto:hello@hollisztika.hu" target="_blank" rel="noopener noreferrer">
+          <a class="footer-contact" href="mailto:hello@holistiklife.com" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            <span>hello@hollisztika.hu</span>
+            <span>hello@holistiklife.com</span>
           </a>
-          <!-- TODO: A végleges telefonszám megadásakor cseréld le a szöveget és a tel: hivatkozást. -->
+
           <span class="footer-contact">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg>
-            <span>Telefonszám hamarosan</span>
+            <span>Hívás +36 70 / 395-1468</span>
           </span>
           <a class="footer-contact" href="https://www.google.com/maps/search/?api=1&amp;query=Fels%C5%91zsolca" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg>
-            <span>Felsőzsolca</span>
+            <span>Felsőzsolca és térsége</span>
           </a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Bodnár Szintia – Minden jog fenntartva.</div>
+      <div class="footer-bottom">© 2026 Bodnár Szintia Linda – Minden jog fenntartva. · <a href="adatkezeles.html">Adatkezelési nyilatkozat</a></div>
     </div>
   </footer>
 
@@ -1120,6 +1348,37 @@
       
       applyTheme(theme);
       toggle.addEventListener('click', () => applyTheme(theme === 'dark' ? 'light' : 'dark'));
+
+      const languageToggle = document.querySelector('[data-language-toggle]');
+      const languageMenu = document.getElementById('language-menu');
+      const languageOptions = document.querySelectorAll('[data-language]');
+
+      function closeLanguageMenu() {
+        languageMenu.hidden = true;
+        languageToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      languageToggle.addEventListener('click', () => {
+        const willOpen = languageMenu.hidden;
+        languageMenu.hidden = !willOpen;
+        languageToggle.setAttribute('aria-expanded', String(willOpen));
+      });
+
+      languageOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          languageOptions.forEach(item => item.setAttribute('aria-pressed', String(item === option)));
+          document.documentElement.lang = option.dataset.language;
+          closeLanguageMenu();
+        });
+      });
+
+      document.addEventListener('click', event => {
+        if (!event.target.closest('.language-picker')) closeLanguageMenu();
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeLanguageMenu();
+      });
       
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduced) {
@@ -1172,5 +1431,8 @@
       }
     })();
   </script>
-</body>
+
+  <script src="booking-config.js"></script>
+  <script src="booking.js"></script>
+/body>
 </html>
