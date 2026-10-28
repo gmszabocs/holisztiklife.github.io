@@ -8,6 +8,9 @@
   const submit = document.getElementById('booking-submit');
   let currentService = null;
   let selectedSlot = null;
+  let submitting = false;
+  let loadController = null;
+  let requestIdentity = null;
 
   const localDate = () => new Intl.DateTimeFormat('en-CA', { timeZone: config.timezone }).format(new Date());
   date.min = localDate();
@@ -19,6 +22,7 @@
     status.classList.toggle('is-error', isError);
   };
   const endpoint = (name) => `${config.SUPABASE_FUNCTIONS_URL}/${name}`;
+  const apiHeaders = () => ({ apikey: config.SUPABASE_PUBLISHABLE_KEY || '' });
 
   function renderSlots(slotList) {
     if (!slotList.length) { showStatus('Erre a napra nincs szabad időpont. Válassz másik dátumot.'); return; }
@@ -27,6 +31,7 @@
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'booking-slot'; button.textContent = slot.label;
       button.addEventListener('click', () => {
+        if (submitting) return;
         slots.querySelectorAll('.booking-slot').forEach(item => item.classList.remove('is-selected'));
         button.classList.add('is-selected'); selectedSlot = slot.start;
         document.getElementById('booking-start').value = slot.start; submit.disabled = false;
@@ -40,16 +45,22 @@
     if (weekday === 0 || weekday === 6) return [];
     return Array.from({ length: 7 }, (_, index) => {
       const hour = 10 + index;
-      return { start: `${date.value}T${String(hour).padStart(2, '0')}:00:00.000Z`, label: `${String(hour).padStart(2, '0')}:00` };
-    });
+      const guess = new Date(`${date.value}T${String(hour).padStart(2, '0')}:00:00Z`);
+      const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: config.timezone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(guess).map(part => [part.type, part.value]));
+      const offset = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute) - guess.getTime();
+      return { start: new Date(guess.getTime() - offset).toISOString(), label: `${String(hour).padStart(2, '0')}:00` };
+    }).filter(slot => new Date(slot.start) > new Date());
   }
 
   async function loadSlots() {
+    loadController?.abort();
+    const controller = new AbortController();
+    loadController = controller;
     selectedSlot = null;
     document.getElementById('booking-start').value = '';
     submit.disabled = true;
     slots.innerHTML = '';
-    if (!config.SUPABASE_FUNCTIONS_URL && config.PREVIEW_MODE) {
+    if (config.PREVIEW_MODE) {
       showStatus('Válassz egy neked megfelelő időpontot.');
       renderSlots(previewSlots());
       return;
@@ -60,14 +71,17 @@
     }
     showStatus('Szabad időpontok keresése…');
     try {
-      const response = await fetch(`${endpoint('availability')}?service=${encodeURIComponent(currentService.id)}&date=${date.value}`);
+      const response = await fetch(`${endpoint('availability')}?service=${encodeURIComponent(currentService.id)}&date=${date.value}`, { headers: apiHeaders(), signal: controller.signal });
       const data = await response.json();
+      if (controller.signal.aborted) return;
       if (!response.ok) throw new Error(data.error || 'Az időpontok nem tölthetők be.');
+      if (!Array.isArray(data.slots)) throw new Error('Az időpontok nem tölthetők be.');
       renderSlots(data.slots);
-    } catch (error) { showStatus(error.message || 'Hiba történt. Próbáld újra később.', true); }
+    } catch (error) { if (!controller.signal.aborted) showStatus(error.message || 'Hiba történt. Próbáld újra később.', true); }
   }
 
   window.openBookingModal = trigger => {
+    if (submitting) return;
     const service = config.services[trigger.dataset.serviceId];
     if (!service) { alert('Ehhez a szolgáltatáshoz a foglalás még nem elérhető.'); return; }
     currentService = { ...service, id: trigger.dataset.serviceId };
@@ -87,22 +101,31 @@
   };
 
   date.addEventListener('change', loadSlots);
-  dialog.addEventListener('close', () => document.body.classList.remove('booking-open'));
+  dialog.addEventListener('close', () => { loadController?.abort(); document.body.classList.remove('booking-open'); });
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!selectedSlot || !form.reportValidity()) return;
-    if (!config.SUPABASE_FUNCTIONS_URL) {
+    if (submitting || !selectedSlot || !form.reportValidity()) return;
+    if (config.PREVIEW_MODE || !config.SUPABASE_FUNCTIONS_URL) {
       showStatus('Ez a foglaló még tesztelési nézetben van; az élesítés után itt lehet véglegesíteni a foglalást.', true);
       return;
     }
-    submit.disabled = true; showStatus('Foglalás rögzítése…');
     const payload = Object.fromEntries(new FormData(form));
+    const serialized = JSON.stringify(payload);
+    if (!requestIdentity || requestIdentity.serialized !== serialized) requestIdentity = { serialized, key: crypto.randomUUID() };
+    payload.idempotencyKey = requestIdentity.key;
+    submitting = true; date.disabled = true; submit.disabled = true; showStatus('Foglalás rögzítése…');
     try {
-      const response = await fetch(endpoint('book'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const response = await fetch(endpoint('book'), { method: 'POST', headers: { ...apiHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'A foglalást nem sikerült rögzíteni.');
+      if (!response.ok) {
+        if (data.code === 'SLOT_TAKEN' || data.code === 'PAST_SLOT') await loadSlots();
+        throw new Error(data.error || 'A foglalást nem sikerült rögzíteni.');
+      }
       form.hidden = true; slots.hidden = true; date.closest('.booking-date-row').hidden = true;
-      showStatus('Köszönjük! A foglalásodat rögzítettük. Hamarosan visszaigazoló e-mailt kapsz.');
-    } catch (error) { showStatus(error.message || 'Hiba történt. Ellenőrizd az adatokat, majd próbáld újra.', true); submit.disabled = false; }
+      showStatus(data.message || 'Köszönjük! A foglalásodat rögzítettük.', data.confirmation === 'failed');
+      requestIdentity = null;
+    } catch (error) { showStatus(error.message || 'Nem érkezett visszajelzés. Ugyanezekkel az adatokkal újrapróbálhatod; a rendszer ellenőrzi, hogy a foglalás már megvan-e.', true); }
+    finally { submitting = false; date.disabled = false; submit.disabled = !selectedSlot || form.hidden; }
   });
 })();
+
